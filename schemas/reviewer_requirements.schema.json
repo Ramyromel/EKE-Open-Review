@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eke/reviewer_requirements.schema.json",
+  "title": "EKE Reviewer Requirements",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reviewer_id",
+    "status",
+    "independence",
+    "conflict_of_interest",
+    "review_level"
+  ],
+  "properties": {
+    "reviewer_id": {
+      "type": "string",
+      "pattern": "^EKE-RV-[0-9]{4}-[0-9]{4}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "APPLIED",
+        "ACCEPTED",
+        "ACTIVE",
+        "COMPLETED",
+        "SUSPENDED",
+        "WITHDRAWN",
+        "REVOKED"
+      ]
+    },
+    "independence": {
+      "type": "boolean"
+    },
+    "conflict_of_interest": {
+      "type": "string",
+      "enum": [
+        "NONE_DECLARED",
+        "DECLARED",
+        "UNDER_REVIEW"
+      ]
+    },
+    "review_level": {
+      "type": "string",
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ]
+    }
+  }
+}
