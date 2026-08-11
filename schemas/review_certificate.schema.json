@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eke/review_certificate.schema.json",
+  "title": "EKE Review Certificate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "certificate_id",
+    "review_id",
+    "status",
+    "issuance"
+  ],
+  "properties": {
+    "certificate_id": {
+      "type": "string",
+      "pattern": "^EKE-CERT-[0-9]{4}-[0-9]{3}$"
+    },
+    "review_id": {
+      "type": "string",
+      "pattern": "^EKE-IR-[0-9]{4}-[0-9]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "SUPERSEDED",
+        "REVOKED",
+        "CHALLENGED"
+      ]
+    },
+    "issuance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "timestamp"
+      ],
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "minLength": 1
+        },
+        "issuer_reference": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "verification_state": {
+      "type": "string",
+      "enum": [
+        "DESIGNED",
+        "IMPLEMENTED",
+        "TESTED",
+        "VERIFIED",
+        "INDEPENDENTLY_REPRODUCED"
+      ]
+    },
+    "evidence_references": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "reviewer_attestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewer_reference",
+        "attestation_statement",
+        "attestation_timestamp"
+      ],
+      "properties": {
+        "reviewer_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attestation_statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attestation_timestamp": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "ai_disclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "used"
+      ],
+      "properties": {
+        "used": {
+          "type": "boolean"
+        },
+        "system_provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_authority": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hash": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manifest_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cryptographic_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signature": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "challenge_reference": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
