@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eke/active_review.schema.json",
+  "title": "EKE Active Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_id",
+    "status",
+    "review_level",
+    "scope_reference",
+    "evidence_boundary",
+    "current_phase"
+  ],
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "pattern": "^EKE-IR-[0-9]{4}-[0-9]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "PAUSED",
+        "BLOCKED",
+        "COMPLETED"
+      ]
+    },
+    "review_level": {
+      "type": "string",
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ]
+    },
+    "scope_reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declared"
+      ],
+      "properties": {
+        "declared": {
+          "type": "boolean"
+        }
+      }
+    },
+    "current_phase": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
