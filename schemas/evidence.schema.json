@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eke/evidence.schema.json",
+  "title": "EKE Evidence Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "source_class",
+    "status",
+    "review_id"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^EKE-EV-[0-9]{4}-[0-9]{3}$"
+    },
+    "source_class": {
+      "type": "string",
+      "enum": [
+        "DOCUMENT",
+        "SOURCE_CODE",
+        "REPOSITORY",
+        "DATASET",
+        "TEST_ARTIFACT",
+        "EXECUTION_OUTPUT",
+        "CONFIGURATION",
+        "MANIFEST",
+        "CRYPTOGRAPHIC_RECORD",
+        "OTHER"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "DECLARED",
+        "ACQUIRED",
+        "INTEGRITY_CHECKED",
+        "REVIEWED",
+        "REPRODUCED",
+        "CHALLENGED",
+        "REJECTED"
+      ]
+    },
+    "review_id": {
+      "type": "string",
+      "pattern": "^EKE-IR-[0-9]{4}-[0-9]{3}$"
+    }
+  }
+}
