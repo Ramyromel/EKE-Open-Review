@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eke/completed_review.schema.json",
+  "title": "EKE Completed Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_id",
+    "status",
+    "determination"
+  ],
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "pattern": "^EKE-IR-[0-9]{4}-[0-9]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "COMPLETED",
+        "CHALLENGED",
+        "SUPERSEDED"
+      ]
+    },
+    "determination": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
