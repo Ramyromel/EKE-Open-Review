@@ -94,3 +94,98 @@ def test_ai_disclosure_requires_explicit_usage_flag():
 
     assert "used" in disclosure["required"]
     assert disclosure["properties"]["used"]["type"] == "boolean"
+
+
+def test_certificate_type_profiles():
+    schema = load_schema()
+
+    values = schema["properties"]["certificate_type"]["enum"]
+
+    assert values == [
+        "VERIFIABLE",
+        "FAILED",
+        "AI_ASSISTED"
+    ]
+
+
+def test_certificate_outcomes():
+    schema = load_schema()
+
+    values = schema["properties"]["review_outcome"]["enum"]
+
+    assert values == [
+        "SUCCESSFUL_REVIEW",
+        "REVIEW_FAILED",
+        "AI_ASSISTED_HUMAN_VERIFIED"
+    ]
+
+
+def test_certificate_classifications():
+    schema = load_schema()
+
+    values = schema["properties"]["classification"]["enum"]
+
+    assert values == [
+        "VERIFIED",
+        "NON_CONFORMANT",
+        "PARTIALLY_VERIFIED"
+    ]
+
+
+def test_certificate_cross_layer_references():
+    schema = load_schema()
+
+    properties = schema["properties"]
+
+    assert "babt_reference" in properties
+    assert "registry_reference" in properties
+    assert "audit_reference" in properties
+    assert "evidence_root" in properties
+
+
+def test_registry_reference_pattern():
+    schema = load_schema()
+
+    assert (
+        schema["properties"]["registry_reference"]["pattern"]
+        == "^EKE-REG-[0-9]{4}-[0-9]{3}$"
+    )
+
+
+def test_audit_reference_pattern():
+    schema = load_schema()
+
+    assert (
+        schema["properties"]["audit_reference"]["pattern"]
+        == "^EKE-AUDIT-[0-9]{4}-[0-9]{3}$"
+    )
+
+
+def test_nft_structure():
+    schema = load_schema()
+
+    nft = schema["properties"]["nft"]
+
+    assert nft["type"] == "object"
+    assert nft["required"] == ["enabled"]
+
+    properties = nft["properties"]
+
+    assert "token_id" in properties
+    assert "contract_reference" in properties
+    assert "chain_reference" in properties
+    assert "metadata_uri" in properties
+
+
+def test_blockchain_anchor_structure():
+    schema = load_schema()
+
+    anchor = schema["properties"]["blockchain_anchor"]
+
+    assert anchor["type"] == "object"
+
+    properties = anchor["properties"]
+
+    assert "network" in properties
+    assert "transaction_reference" in properties
+    assert "block_reference" in properties

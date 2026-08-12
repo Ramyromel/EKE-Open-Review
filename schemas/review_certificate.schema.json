@@ -8,7 +8,10 @@
     "certificate_id",
     "review_id",
     "status",
-    "issuance"
+    "issuance",
+    "certificate_type",
+    "review_outcome",
+    "classification"
   ],
   "properties": {
     "certificate_id": {
@@ -138,6 +141,101 @@
     "challenge_reference": {
       "type": "string",
       "minLength": 1
+    },
+    "certificate_type": {
+      "type": "string",
+      "enum": [
+        "VERIFIABLE",
+        "FAILED",
+        "AI_ASSISTED"
+      ]
+    },
+    "review_outcome": {
+      "type": "string",
+      "enum": [
+        "SUCCESSFUL_REVIEW",
+        "REVIEW_FAILED",
+        "AI_ASSISTED_HUMAN_VERIFIED"
+      ]
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "NON_CONFORMANT",
+        "PARTIALLY_VERIFIED"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "VERY_HIGH"
+      ]
+    },
+    "babt_reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registry_reference": {
+      "type": "string",
+      "pattern": "^EKE-REG-[0-9]{4}-[0-9]{3}$"
+    },
+    "audit_reference": {
+      "type": "string",
+      "pattern": "^EKE-AUDIT-[0-9]{4}-[0-9]{3}$"
+    },
+    "evidence_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "blockchain_anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "network": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transaction_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "block_reference": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "nft": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "token_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contract_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "chain_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metadata_uri": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     }
   }
 }
