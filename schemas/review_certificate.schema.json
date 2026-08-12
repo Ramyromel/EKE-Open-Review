@@ -176,8 +176,75 @@
       ]
     },
     "babt_reference": {
-      "type": "string",
-      "minLength": 1
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network",
+        "contract_address",
+        "token_id",
+        "token_standard",
+        "holding_address"
+      ],
+      "properties": {
+        "network": {
+          "type": "string",
+          "minLength": 1,
+          "examples": [
+            "BNB Smart Chain"
+          ]
+        },
+        "contract_address": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "examples": [
+            "0x2B09d47D550061f995A3b5C6F0Fd58005215D7c8"
+          ]
+        },
+        "token_id": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "examples": [
+            "930387"
+          ]
+        },
+        "token_standard": {
+          "type": "string",
+          "enum": [
+            "BEP-721"
+          ],
+          "examples": [
+            "BEP-721"
+          ]
+        },
+        "holding_address": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "examples": [
+            "0xf6F211bEEb7bbA594c4B0B93708fD709318F32Eb"
+          ]
+        },
+        "creator_address": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "examples": [
+            "0x9189739e7dc22c8933ccbe859129df1b57218848"
+          ]
+        },
+        "mint_transaction": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{64}$",
+          "examples": [
+            "0x1ba835759e5ebc4832a64ddbbb5cfbfefaf54f025f64329a297df651d1b01fb5"
+          ]
+        },
+        "mint_block": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "examples": [
+            "34120391"
+          ]
+        }
+      }
     },
     "registry_reference": {
       "type": "string",
@@ -221,19 +288,44 @@
         },
         "token_id": {
           "type": "string",
-          "minLength": 1
+          "pattern": "^[0-9]+$",
+          "examples": [
+            "930387"
+          ]
         },
         "contract_reference": {
           "type": "string",
-          "minLength": 1
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "examples": [
+            "0x2B09d47D550061f995A3b5C6F0Fd58005215D7c8"
+          ]
         },
         "chain_reference": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "examples": [
+            "BNB Smart Chain"
+          ]
         },
         "metadata_uri": {
           "type": "string",
           "minLength": 1
+        },
+        "token_standard": {
+          "type": "string",
+          "enum": [
+            "BEP-721"
+          ],
+          "examples": [
+            "BEP-721"
+          ]
+        },
+        "holding_address": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "examples": [
+            "0xf6F211bEEb7bbA594c4B0B93708fD709318F32Eb"
+          ]
         }
       }
     }
