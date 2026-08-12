@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eke/dispute_appeal.schema.json",
+  "title": "EKE Dispute and Appeal Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "record_id",
+    "review_id",
+    "status",
+    "grounds"
+  ],
+  "properties": {
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "DISPUTE",
+        "APPEAL"
+      ]
+    },
+    "record_id": {
+      "type": "string",
+      "pattern": "^EKE-(DSP|APL)-[0-9]{4}-[0-9]{3}$"
+    },
+    "review_id": {
+      "type": "string",
+      "pattern": "^EKE-IR-[0-9]{4}-[0-9]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "SUBMITTED",
+        "ACCEPTED",
+        "UNDER_REVIEW",
+        "DETERMINED",
+        "RESOLVED",
+        "REJECTED",
+        "WITHDRAWN",
+        "SUPERSEDED",
+        "CHALLENGED"
+      ]
+    },
+    "grounds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "PROCEDURAL_NON_CONFORMITY",
+          "EVIDENCE_OMISSION",
+          "EVIDENCE_INTERPRETATION",
+          "FACTUAL_ERROR",
+          "REPRODUCIBILITY_ISSUE",
+          "SCOPE_VIOLATION",
+          "INDEPENDENCE_CONCERN",
+          "INTEGRITY_CONCERN",
+          "DETERMINATION_INCONSISTENCY",
+          "NEWLY_AVAILABLE_EVIDENCE",
+          "OTHER"
+        ]
+      }
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "finding_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "certificate_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^EKE-CERT-[0-9]{4}-[0-9]{3}$"
+      }
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "determination": {
+      "type": "string"
+    }
+  }
+}
