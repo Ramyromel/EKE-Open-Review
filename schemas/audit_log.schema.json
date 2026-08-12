@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eke/audit_log.schema.json",
+  "title": "EKE Audit Log Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "audit_id",
+    "event_type",
+    "event_timestamp",
+    "object"
+  ],
+  "properties": {
+    "audit_id": {
+      "type": "string",
+      "pattern": "^EKE-AUDIT-[0-9]{4}-[0-9]{3}$"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "UPDATED",
+        "STATE_CHANGED",
+        "SUBMITTED",
+        "ACCEPTED",
+        "REJECTED",
+        "WITHDRAWN",
+        "COMPLETED",
+        "ISSUED",
+        "SUPERSEDED",
+        "REVOKED",
+        "CHALLENGED",
+        "APPEALED",
+        "RESOLVED"
+      ]
+    },
+    "event_timestamp": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_id": {
+      "type": "string",
+      "pattern": "^EKE-IR-[0-9]{4}-[0-9]{3}$"
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "REVIEW_APPLICATION",
+            "ACTIVE_REVIEW",
+            "COMPLETED_REVIEW",
+            "REVIEW_CERTIFICATE",
+            "EVIDENCE_PACKAGE",
+            "CHALLENGE",
+            "APPEAL",
+            "AUDIT_RECORD"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "HUMAN_REVIEWER",
+            "REVIEW_PROCESS",
+            "SYSTEM_PROCESS",
+            "AUTOMATED_MECHANISM",
+            "AI_ASSISTED_MECHANISM"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "previous_audit_id": {
+      "type": "string",
+      "pattern": "^EKE-AUDIT-[0-9]{4}-[0-9]{3}$"
+    },
+    "previous_state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resulting_state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registry_reference": {
+      "type": "string",
+      "pattern": "^EKE-REG-[0-9]{4}-[0-9]{3}$"
+    },
+    "certificate_reference": {
+      "type": "string",
+      "pattern": "^EKE-CERT-[0-9]{4}-[0-9]{3}$"
+    },
+    "challenge_reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "disclosure_reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "integrity_reference": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
