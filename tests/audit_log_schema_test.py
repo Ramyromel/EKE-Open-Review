@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import jsonschema
+
 
 def load_schema():
     path = Path("schemas/audit_log.schema.json")
@@ -139,3 +141,29 @@ def test_traceability_fields_exist():
     assert "challenge_reference" in properties
     assert "disclosure_reference" in properties
     assert "integrity_reference" in properties
+
+
+def test_event_timestamp_pattern():
+    schema = load_schema()
+
+    assert (
+        schema["properties"]["event_timestamp"]["pattern"]
+        == "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    )
+
+
+def test_invalid_event_timestamp_is_rejected():
+    schema = load_schema()
+    record = {
+        "audit_id": "EKE-AUDIT-2026-001",
+        "event_type": "CREATED",
+        "event_timestamp": "2026-08-12 00:00:00",
+        "object": {"type": "ACTIVE_REVIEW", "id": "EKE-IR-2026-001"},
+    }
+
+    try:
+        jsonschema.validate(record, schema)
+    except jsonschema.ValidationError:
+        return
+
+    raise AssertionError("Invalid event_timestamp was accepted")

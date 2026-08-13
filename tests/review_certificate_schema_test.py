@@ -87,6 +87,26 @@ def test_attestation_requirements():
     ]
 
 
+def test_certificate_timestamps_have_utc_iso8601_pattern():
+    schema = load_schema()
+
+    issuance_timestamp = (
+        schema["properties"]["issuance"]["properties"]["timestamp"]["pattern"]
+    )
+    attestation_timestamp = (
+        schema["properties"]["reviewer_attestation"]["properties"][
+            "attestation_timestamp"
+        ]["pattern"]
+    )
+
+    expected_pattern = (
+        "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    )
+
+    assert issuance_timestamp == expected_pattern
+    assert attestation_timestamp == expected_pattern
+
+
 def test_ai_disclosure_requires_explicit_usage_flag():
     schema = load_schema()
 
@@ -307,3 +327,17 @@ def test_valid_babt_certificate_fixture_conforms_to_schema():
     fixture = json.loads(fixture_path.read_text())
 
     Draft202012Validator(schema).validate(fixture)
+
+
+def test_invalid_issuance_timestamp_is_rejected():
+    from jsonschema import Draft202012Validator
+
+    schema = load_schema()
+    fixture_path = Path("tests/fixtures/valid_babt_certificate.json")
+    fixture = json.loads(fixture_path.read_text())
+    fixture["issuance"]["timestamp"] = "2026-08-12"
+
+    validator = Draft202012Validator(schema)
+    errors = list(validator.iter_errors(fixture))
+
+    assert errors, "Invalid issuance timestamp was accepted"

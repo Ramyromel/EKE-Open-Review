@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import jsonschema
+
 
 def load_schema():
     path = Path("schemas/review_registry.schema.json")
@@ -104,3 +106,34 @@ def test_traceability_references_exist():
     assert "certificate_id" in properties
     assert "challenge_reference" in properties
     assert "revocation_reference" in properties
+
+
+def test_timestamp_patterns():
+    schema = load_schema()
+    properties = schema["properties"]
+
+    assert (
+        properties["effective_timestamp"]["pattern"]
+        == "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    )
+    assert (
+        properties["state_change_timestamp"]["pattern"]
+        == "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    )
+
+
+def test_invalid_timestamp_is_rejected():
+    schema = load_schema()
+    entry = {
+        "registry_id": "EKE-REG-2026-001",
+        "object": {"type": "REVIEW_CERTIFICATE", "id": "EKE-CERT-2026-001"},
+        "state": "ACTIVE",
+        "effective_timestamp": "2026/08/12",
+    }
+
+    try:
+        jsonschema.validate(entry, schema)
+    except jsonschema.ValidationError:
+        return
+
+    raise AssertionError("Invalid effective_timestamp was accepted")

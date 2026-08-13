@@ -106,3 +106,17 @@ def test_invalid_outcome_is_rejected():
         return
 
     raise AssertionError("Invalid outcome was accepted")
+
+
+def test_invalid_determination_timestamp_is_rejected():
+    schema = load_schema()
+    record = valid_record()
+
+    record["determination"]["timestamp"] = "2026-08-12"
+
+    try:
+        jsonschema.validate(record, schema)
+    except jsonschema.ValidationError:
+        return
+
+    raise AssertionError("Invalid determination.timestamp was accepted")
