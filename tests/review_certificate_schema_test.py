@@ -6,6 +6,9 @@ from jsonschema import ValidationError
 import pytest
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
 def load_schema():
     path = Path("schemas/review_certificate.schema.json")
     assert path.exists()
@@ -336,8 +339,8 @@ def test_nft_includes_holding_address():
 def test_valid_babt_certificate_fixture_conforms_to_schema():
     schema = load_schema()
 
-    fixture_path = Path(
-        "tests/fixtures/valid_babt_certificate.json"
+    fixture_path = (
+        ROOT / "tests" / "fixtures" / "valid_babt_certificate.json"
     )
 
     fixture = json.loads(fixture_path.read_text())
@@ -347,7 +350,9 @@ def test_valid_babt_certificate_fixture_conforms_to_schema():
 
 def test_invalid_issuance_timestamp_is_rejected():
     schema = load_schema()
-    fixture_path = Path("tests/fixtures/valid_babt_certificate.json")
+    fixture_path = (
+        ROOT / "tests" / "fixtures" / "valid_babt_certificate.json"
+    )
     fixture = json.loads(fixture_path.read_text())
     fixture["issuance"]["timestamp"] = "2026-08-12"
 
@@ -357,7 +362,9 @@ def test_invalid_issuance_timestamp_is_rejected():
 
 def test_invalid_evidence_reference_is_rejected():
     schema = load_schema()
-    fixture_path = Path("tests/fixtures/valid_babt_certificate.json")
+    fixture_path = (
+        ROOT / "tests" / "fixtures" / "valid_babt_certificate.json"
+    )
     fixture = json.loads(fixture_path.read_text())
     fixture["evidence_references"] = ["evidence-001"]
 

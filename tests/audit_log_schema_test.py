@@ -5,8 +5,11 @@ import jsonschema
 import pytest
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
 def load_schema():
-    path = Path("schemas/audit_log.schema.json")
+    path = ROOT / "schemas" / "audit_log.schema.json"
     assert path.exists()
     return json.loads(path.read_text())
 

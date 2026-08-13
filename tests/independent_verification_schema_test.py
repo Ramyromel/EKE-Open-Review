@@ -97,6 +97,7 @@ def test_invalid_outcome_is_rejected():
         jsonschema.validate(record, schema)
 
 
+
 def test_invalid_determination_timestamp_is_rejected():
     schema = load_schema()
     record = valid_record()

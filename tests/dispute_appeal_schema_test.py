@@ -5,7 +5,8 @@ import jsonschema
 import pytest
 
 
-SCHEMA_PATH = Path("schemas/dispute_appeal.schema.json")
+ROOT = Path(__file__).resolve().parents[1]
+SCHEMA_PATH = ROOT / "schemas" / "dispute_appeal.schema.json"
 
 
 def load_schema():
