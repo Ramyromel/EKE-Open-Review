@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 import jsonschema
+import pytest
 
 
 def load_schema():
@@ -161,9 +162,5 @@ def test_invalid_event_timestamp_is_rejected():
         "object": {"type": "ACTIVE_REVIEW", "id": "EKE-IR-2026-001"},
     }
 
-    try:
+    with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(record, schema)
-    except jsonschema.ValidationError:
-        return
-
-    raise AssertionError("Invalid event_timestamp was accepted")

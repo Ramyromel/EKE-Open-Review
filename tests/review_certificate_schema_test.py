@@ -1,6 +1,10 @@
 import json
 from pathlib import Path
 
+from jsonschema import Draft202012Validator
+from jsonschema import ValidationError
+import pytest
+
 
 def load_schema():
     path = Path("schemas/review_certificate.schema.json")
@@ -316,8 +320,6 @@ def test_nft_includes_holding_address():
 
 
 def test_valid_babt_certificate_fixture_conforms_to_schema():
-    from jsonschema import Draft202012Validator
-
     schema = load_schema()
 
     fixture_path = Path(
@@ -330,14 +332,10 @@ def test_valid_babt_certificate_fixture_conforms_to_schema():
 
 
 def test_invalid_issuance_timestamp_is_rejected():
-    from jsonschema import Draft202012Validator
-
     schema = load_schema()
     fixture_path = Path("tests/fixtures/valid_babt_certificate.json")
     fixture = json.loads(fixture_path.read_text())
     fixture["issuance"]["timestamp"] = "2026-08-12"
 
-    validator = Draft202012Validator(schema)
-    errors = list(validator.iter_errors(fixture))
-
-    assert errors, "Invalid issuance timestamp was accepted"
+    with pytest.raises(ValidationError):
+        Draft202012Validator(schema).validate(fixture)

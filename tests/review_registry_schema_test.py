@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 import jsonschema
+import pytest
 
 
 def load_schema():
@@ -131,9 +132,5 @@ def test_invalid_timestamp_is_rejected():
         "effective_timestamp": "2026/08/12",
     }
 
-    try:
+    with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(entry, schema)
-    except jsonschema.ValidationError:
-        return
-
-    raise AssertionError("Invalid effective_timestamp was accepted")

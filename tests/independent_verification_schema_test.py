@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 import jsonschema
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -114,9 +115,5 @@ def test_invalid_determination_timestamp_is_rejected():
 
     record["determination"]["timestamp"] = "2026-08-12"
 
-    try:
+    with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(record, schema)
-    except jsonschema.ValidationError:
-        return
-
-    raise AssertionError("Invalid determination.timestamp was accepted")
