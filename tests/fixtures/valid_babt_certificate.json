@@ -1,0 +1,31 @@
+{
+  "certificate_id": "EKE-CERT-2026-001",
+  "review_id": "EKE-IR-2026-001",
+  "status": "ACTIVE",
+  "issuance": {
+    "timestamp": "2026-08-12T00:00:00Z",
+    "issuer_reference": "EKE-ISSUER-2026-001"
+  },
+  "certificate_type": "VERIFIABLE",
+  "review_outcome": "SUCCESSFUL_REVIEW",
+  "classification": "VERIFIED",
+  "verification_state": "INDEPENDENTLY_REPRODUCED",
+  "reviewer_attestation": {
+    "reviewer_reference": "EKE-REVIEWER-2026-001",
+    "attestation_statement": "Independent review attestation.",
+    "attestation_timestamp": "2026-08-12T00:00:00Z"
+  },
+  "ai_disclosure": {
+    "used": false
+  },
+  "babt_reference": {
+    "network": "BNB Smart Chain",
+    "contract_address": "0x2B09d47D550061f995A3b5C6F0Fd58005215D7c8",
+    "token_id": "930387",
+    "token_standard": "BEP-721",
+    "holding_address": "0xf6F211bEEb7bbA594c4B0B93708fD709318F32Eb",
+    "creator_address": "0x9189739e7dc22c8933ccbe859129df1b57218848",
+    "mint_transaction": "0x1ba835759e5ebc4832a64ddbbb5cfbfefaf54f025f64329a297df651d1b01fb5",
+    "mint_block": "34120391"
+  }
+}

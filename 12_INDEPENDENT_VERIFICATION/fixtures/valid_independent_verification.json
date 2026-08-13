@@ -1,0 +1,38 @@
+{
+  "verification_id": "EKE-IV-2026-001",
+  "review_id": "EKE-IR-2026-001",
+  "status": "DETERMINED",
+  "outcome": "PASS",
+  "subject": {
+    "name": "EKE Test Subject",
+    "version": "0.1"
+  },
+  "criteria": [
+    "criterion-001"
+  ],
+  "evidence_references": [
+    "EKE-EV-2026-001"
+  ],
+  "procedure": {
+    "reference": "PROC-IV-001",
+    "description": "Independent verification procedure"
+  },
+  "independence": {
+    "status": "SATISFIED",
+    "verifier_reference": "EKE-RV-2026-0001",
+    "conflict_of_interest": "NONE_DECLARED"
+  },
+  "reproduction": {
+    "status": "REPRODUCED",
+    "artifact_reference": "artifact-001",
+    "result_reference": "result-001"
+  },
+  "multi_implementation": {
+    "status": "NOT_APPLICABLE"
+  },
+  "determination": {
+    "statement": "Verification criteria satisfied.",
+    "timestamp": "2026-08-12T00:00:00Z",
+    "limitations": []
+  }
+}
