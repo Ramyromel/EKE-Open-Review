@@ -167,6 +167,20 @@ def test_certificate_cross_layer_references():
     assert "evidence_root" in properties
 
 
+def test_certificate_evidence_and_challenge_reference_patterns():
+    schema = load_schema()
+    properties = schema["properties"]
+
+    assert (
+        properties["evidence_references"]["items"]["pattern"]
+        == "^EKE-EV-[0-9]{4}-[0-9]{3}$"
+    )
+    assert (
+        properties["challenge_reference"]["pattern"]
+        == "^EKE-(DSP|APL)-[0-9]{4}-[0-9]{3}$"
+    )
+
+
 def test_registry_reference_pattern():
     schema = load_schema()
 
@@ -336,6 +350,16 @@ def test_invalid_issuance_timestamp_is_rejected():
     fixture_path = Path("tests/fixtures/valid_babt_certificate.json")
     fixture = json.loads(fixture_path.read_text())
     fixture["issuance"]["timestamp"] = "2026-08-12"
+
+    with pytest.raises(ValidationError):
+        Draft202012Validator(schema).validate(fixture)
+
+
+def test_invalid_evidence_reference_is_rejected():
+    schema = load_schema()
+    fixture_path = Path("tests/fixtures/valid_babt_certificate.json")
+    fixture = json.loads(fixture_path.read_text())
+    fixture["evidence_references"] = ["evidence-001"]
 
     with pytest.raises(ValidationError):
         Draft202012Validator(schema).validate(fixture)

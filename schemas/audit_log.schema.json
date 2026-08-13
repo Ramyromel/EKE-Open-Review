@@ -106,7 +106,7 @@
     },
     "evidence_reference": {
       "type": "string",
-      "minLength": 1
+      "pattern": "^EKE-EV-[0-9]{4}-[0-9]{3}$"
     },
     "registry_reference": {
       "type": "string",
@@ -118,7 +118,7 @@
     },
     "challenge_reference": {
       "type": "string",
-      "minLength": 1
+      "pattern": "^EKE-(DSP|APL)-[0-9]{4}-[0-9]{3}$"
     },
     "disclosure_reference": {
       "type": "string",

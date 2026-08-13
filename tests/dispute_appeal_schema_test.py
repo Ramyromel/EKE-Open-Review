@@ -1,6 +1,9 @@
 import json
 from pathlib import Path
 
+import jsonschema
+import pytest
+
 
 SCHEMA_PATH = Path("schemas/dispute_appeal.schema.json")
 
@@ -87,6 +90,30 @@ def test_certificate_id_pattern():
         schema["properties"]["certificate_ids"]["items"]["pattern"]
         == "^EKE-CERT-[0-9]{4}-[0-9]{3}$"
     )
+
+
+def test_evidence_id_pattern():
+    schema = load_schema()
+
+    assert (
+        schema["properties"]["evidence_ids"]["items"]["pattern"]
+        == "^EKE-EV-[0-9]{4}-[0-9]{3}$"
+    )
+
+
+def test_invalid_evidence_id_is_rejected():
+    schema = load_schema()
+    record = {
+        "record_type": "DISPUTE",
+        "record_id": "EKE-DSP-2026-001",
+        "review_id": "EKE-IR-2026-001",
+        "status": "SUBMITTED",
+        "grounds": ["FACTUAL_ERROR"],
+        "evidence_ids": ["evidence-001"],
+    }
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(record, schema)
 
 
 def test_additional_properties_disabled():

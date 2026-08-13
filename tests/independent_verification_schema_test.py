@@ -73,12 +73,8 @@ def test_invalid_verification_id_is_rejected():
 
     record["verification_id"] = "INVALID"
 
-    try:
+    with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(record, schema)
-    except jsonschema.ValidationError:
-        return
-
-    raise AssertionError("Invalid verification_id was accepted")
 
 
 def test_missing_evidence_is_rejected():
@@ -87,12 +83,8 @@ def test_missing_evidence_is_rejected():
 
     del record["evidence_references"]
 
-    try:
+    with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(record, schema)
-    except jsonschema.ValidationError:
-        return
-
-    raise AssertionError("Record without evidence_references was accepted")
 
 
 def test_invalid_outcome_is_rejected():
@@ -101,12 +93,8 @@ def test_invalid_outcome_is_rejected():
 
     record["outcome"] = "VERIFIED"
 
-    try:
+    with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(record, schema)
-    except jsonschema.ValidationError:
-        return
-
-    raise AssertionError("Invalid outcome was accepted")
 
 
 def test_invalid_determination_timestamp_is_rejected():
@@ -114,6 +102,24 @@ def test_invalid_determination_timestamp_is_rejected():
     record = valid_record()
 
     record["determination"]["timestamp"] = "2026-08-12"
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(record, schema)
+
+
+def test_evidence_reference_pattern():
+    schema = load_schema()
+
+    assert (
+        schema["properties"]["evidence_references"]["items"]["pattern"]
+        == "^EKE-EV-[0-9]{4}-[0-9]{3}$"
+    )
+
+
+def test_invalid_evidence_reference_value_is_rejected():
+    schema = load_schema()
+    record = valid_record()
+    record["evidence_references"] = ["evidence-001"]
 
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(record, schema)

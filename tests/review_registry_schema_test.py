@@ -109,6 +109,20 @@ def test_traceability_references_exist():
     assert "revocation_reference" in properties
 
 
+def test_evidence_and_challenge_reference_patterns():
+    schema = load_schema()
+    properties = schema["properties"]
+
+    assert (
+        properties["evidence_reference"]["pattern"]
+        == "^EKE-EV-[0-9]{4}-[0-9]{3}$"
+    )
+    assert (
+        properties["challenge_reference"]["pattern"]
+        == "^EKE-(DSP|APL)-[0-9]{4}-[0-9]{3}$"
+    )
+
+
 def test_timestamp_patterns():
     schema = load_schema()
     properties = schema["properties"]
@@ -130,6 +144,19 @@ def test_invalid_timestamp_is_rejected():
         "object": {"type": "REVIEW_CERTIFICATE", "id": "EKE-CERT-2026-001"},
         "state": "ACTIVE",
         "effective_timestamp": "2026/08/12",
+    }
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(entry, schema)
+
+
+def test_invalid_challenge_reference_is_rejected():
+    schema = load_schema()
+    entry = {
+        "registry_id": "EKE-REG-2026-001",
+        "object": {"type": "REVIEW_CERTIFICATE", "id": "EKE-CERT-2026-001"},
+        "state": "CHALLENGED",
+        "challenge_reference": "CH-2026-001",
     }
 
     with pytest.raises(jsonschema.ValidationError):

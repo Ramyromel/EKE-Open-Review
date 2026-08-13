@@ -144,6 +144,20 @@ def test_traceability_fields_exist():
     assert "integrity_reference" in properties
 
 
+def test_evidence_and_challenge_reference_patterns():
+    schema = load_schema()
+    properties = schema["properties"]
+
+    assert (
+        properties["evidence_reference"]["pattern"]
+        == "^EKE-EV-[0-9]{4}-[0-9]{3}$"
+    )
+    assert (
+        properties["challenge_reference"]["pattern"]
+        == "^EKE-(DSP|APL)-[0-9]{4}-[0-9]{3}$"
+    )
+
+
 def test_event_timestamp_pattern():
     schema = load_schema()
 
@@ -160,6 +174,20 @@ def test_invalid_event_timestamp_is_rejected():
         "event_type": "CREATED",
         "event_timestamp": "2026-08-12 00:00:00",
         "object": {"type": "ACTIVE_REVIEW", "id": "EKE-IR-2026-001"},
+    }
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(record, schema)
+
+
+def test_invalid_evidence_reference_is_rejected():
+    schema = load_schema()
+    record = {
+        "audit_id": "EKE-AUDIT-2026-001",
+        "event_type": "CREATED",
+        "event_timestamp": "2026-08-12T00:00:00Z",
+        "object": {"type": "ACTIVE_REVIEW", "id": "EKE-IR-2026-001"},
+        "evidence_reference": "ev-2026-001",
     }
 
     with pytest.raises(jsonschema.ValidationError):

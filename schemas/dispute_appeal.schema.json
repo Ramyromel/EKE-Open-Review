@@ -65,7 +65,7 @@
       "type": "array",
       "items": {
         "type": "string",
-        "minLength": 1
+        "pattern": "^EKE-EV-[0-9]{4}-[0-9]{3}$"
       }
     },
     "finding_ids": {
