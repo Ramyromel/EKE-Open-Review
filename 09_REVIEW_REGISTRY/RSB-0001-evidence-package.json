@@ -1,0 +1,11 @@
+{
+  "registry_id": "EKE-REG-2026-002",
+  "object": {
+    "type": "EVIDENCE_PACKAGE",
+    "id": "RSB-0001",
+    "version": "1.0",
+    "source_reference": "04_EVIDENCE_PACKAGE/RSB-0001/RSB-0001.md"
+  },
+  "state": "ACTIVE",
+  "evidence_reference": "04_EVIDENCE_PACKAGE/RSB-0001"
+}

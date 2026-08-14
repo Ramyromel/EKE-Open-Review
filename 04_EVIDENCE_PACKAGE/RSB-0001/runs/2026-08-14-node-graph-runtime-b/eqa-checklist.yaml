@@ -1,0 +1,5 @@
+eqa_checklist_status: NOT_ESTABLISHED
+source_reference: RSB-0001 §6.11
+statement: "RSB-0001 requires an EQA five-criteria checklist but the supplied controlled artifact does not enumerate the five criteria. No reviewer-defined criteria are substituted."
+criteria: []
+limitation: "The explicit benchmark pass/failure criteria are evaluated in pass-fail.yaml. The source-defined EQA five-criteria checklist cannot be completed without its five criteria being supplied."

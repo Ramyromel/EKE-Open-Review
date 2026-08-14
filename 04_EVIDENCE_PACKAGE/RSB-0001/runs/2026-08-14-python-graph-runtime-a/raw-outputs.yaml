@@ -1,0 +1,18 @@
+implementation: python-graph-runtime-a
+normative_answer_data_loaded: false
+queries:
+  Q01:
+    entity: LUXIONEX
+    relation_type: IS_CHILD_OF
+  Q02:
+    entities: [SULAI]
+  Q03:
+    entity: SULAI
+    relation_type: IS_PART_OF
+  Q04: false
+  Q05: RELATED_TO
+  Q06: true
+  Q07: CANONICAL_ARCHITECTURE
+  Q08: 1.0
+  Q09: false
+  Q10: GOVERNANCE_SYSTEM
