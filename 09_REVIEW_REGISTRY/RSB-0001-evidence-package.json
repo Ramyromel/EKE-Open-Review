@@ -1,0 +1,11 @@
+{
+  "registry_id": "EKE-REG-2026-001",
+  "object": {
+    "type": "EVIDENCE_PACKAGE",
+    "id": "RSB-0001",
+    "version": "1.0",
+    "source_reference": "04_EVIDENCE_PACKAGE/RSB-0001/README.md"
+  },
+  "state": "ACTIVE",
+  "effective_timestamp": "2026-08-14T00:00:00Z"
+}
