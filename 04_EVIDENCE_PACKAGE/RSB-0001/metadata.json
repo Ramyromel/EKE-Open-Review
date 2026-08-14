@@ -1,0 +1,25 @@
+{
+  "artifact_id": "RSB-0001",
+  "artifact_filename": "RSB-0001.md",
+  "artifact_version": "1.0",
+  "artifact_status": "ACTIVE",
+  "source_class": "DOCUMENT",
+  "source_location": "external project file supplied for integration",
+  "repository_artifact_status": "PENDING",
+  "provenance": {
+    "origin": "supplied RSB-0001 source artifact",
+    "acquisition_method": "provided for repository integration",
+    "repository_commit": null
+  },
+  "integrity": {
+    "algorithm": "SHA-256",
+    "value": null,
+    "status": "NOT_ESTABLISHED"
+  },
+  "review_id": null,
+  "evidence_record_status": "NOT_INSTANTIATED",
+  "verification_status": "NOT_VERIFIED",
+  "reproduction_status": "NO_POPULATED_RUN_ARTIFACTS",
+  "review_result_status": "NOT_ESTABLISHED",
+  "certification_status": "NOT_ISSUED"
+}
