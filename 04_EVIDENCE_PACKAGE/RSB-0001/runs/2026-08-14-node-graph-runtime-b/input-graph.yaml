@@ -1,0 +1,46 @@
+# Copy of the canonical graph from RSB-0001 v1.0 used by this run.
+entities:
+  - id: E001
+    name: LUXIONEX
+    type: UMBRELLA_PROJECT
+    source: CANONICAL_ARCHITECTURE
+    confidence: 1.0
+  - id: E002
+    name: SULAI
+    type: PROJECT
+    source: CANONICAL_ARCHITECTURE
+    confidence: 1.0
+  - id: E003
+    name: SULAI-TAC
+    type: SUBPROJECT
+    source: CANONICAL_ARCHITECTURE
+    confidence: 1.0
+  - id: E004
+    name: RAHMA
+    type: GOVERNANCE_SYSTEM
+    source: CANONICAL_ARCHITECTURE
+    confidence: 1.0
+  - id: E005
+    name: SCSS
+    type: GOVERNANCE_PROTOCOL
+    source: CANONICAL_ARCHITECTURE
+    confidence: 1.0
+relations:
+  - id: R001
+    from: E002
+    to: E001
+    type: IS_CHILD_OF
+    source: CANONICAL_ARCHITECTURE
+    confidence: 1.0
+  - id: R002
+    from: E003
+    to: E002
+    type: IS_PART_OF
+    source: CANONICAL_ARCHITECTURE
+    confidence: 1.0
+  - id: R003
+    from: E005
+    to: E004
+    type: RELATED_TO
+    source: CANONICAL_ARCHITECTURE
+    confidence: 1.0

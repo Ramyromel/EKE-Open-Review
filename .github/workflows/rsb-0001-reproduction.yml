@@ -1,0 +1,43 @@
+name: RSB-0001 Independent Reproduction
+
+on:
+  push:
+    paths:
+      - '04_EVIDENCE_PACKAGE/RSB-0001/**'
+      - 'schemas/review_registry.schema.json'
+      - 'scripts/rsb_0001/**'
+      - 'tests/rsb_0001_integration_test.py'
+      - '.github/workflows/rsb-0001-reproduction.yml'
+  pull_request:
+    paths:
+      - '04_EVIDENCE_PACKAGE/RSB-0001/**'
+      - 'schemas/review_registry.schema.json'
+      - 'scripts/rsb_0001/**'
+      - 'tests/rsb_0001_integration_test.py'
+      - '.github/workflows/rsb-0001-reproduction.yml'
+  workflow_dispatch:
+
+jobs:
+  reproduction:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      - name: Install verification dependency
+        run: python -m pip install jsonschema pytest pyyaml
+
+      - name: Execute independent reproductions
+        run: python scripts/rsb_0001/verify_reproduction.py
+
+      - name: Run integration tests
+        run: pytest -q tests/rsb_0001_integration_test.py

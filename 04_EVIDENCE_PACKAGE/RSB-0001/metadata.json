@@ -1,0 +1,15 @@
+{
+  "review_target_id": "RSB-0001",
+  "artifact_version": "1.0",
+  "artifact_status": "ACTIVE",
+  "artifact_path": "04_EVIDENCE_PACKAGE/RSB-0001/RSB-0001.md",
+  "benchmark_hypothesis": "CHR-0001",
+  "integrity_sha256": "f5e32ab897bf68e99c3e1ce05a8ff60c6292b282782282caed6ca9ebadd225a2",
+  "integrity_scope": "committed RSB-0001.md bytes on this integration branch",
+  "review_id": null,
+  "verification_status": "NOT_VERIFIED",
+  "reproduction_status": "TWO_POPULATED_RUNS",
+  "certification_status": "NOT_ISSUED",
+  "prior_review_report": "RSB-0001_Review_Report.md",
+  "prior_review_classification": "REVIEW_ARTIFACT_ONLY"
+}
