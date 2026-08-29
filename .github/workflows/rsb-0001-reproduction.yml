@@ -4,12 +4,14 @@ on:
   push:
     paths:
       - '04_EVIDENCE_PACKAGE/RSB-0001/**'
+      - 'schemas/review_registry.schema.json'
       - 'scripts/rsb_0001/**'
       - 'tests/rsb_0001_integration_test.py'
       - '.github/workflows/rsb-0001-reproduction.yml'
   pull_request:
     paths:
       - '04_EVIDENCE_PACKAGE/RSB-0001/**'
+      - 'schemas/review_registry.schema.json'
       - 'scripts/rsb_0001/**'
       - 'tests/rsb_0001_integration_test.py'
       - '.github/workflows/rsb-0001-reproduction.yml'

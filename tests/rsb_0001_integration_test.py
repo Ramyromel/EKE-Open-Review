@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 import jsonschema
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "04_EVIDENCE_PACKAGE" / "RSB-0001"
@@ -50,24 +51,36 @@ def test_reproduction_records_match_independently_generated_outputs():
         "2026-08-14-node-graph-runtime-b",
     ):
         run_dir = PACKAGE / "runs" / run
-        raw = json.loads((run_dir / "raw-outputs.json").read_text(encoding="utf-8"))
-        result = json.loads((run_dir / "pass-fail.json").read_text(encoding="utf-8"))
+        raw = yaml.safe_load((run_dir / "raw-outputs.yaml").read_text(encoding="utf-8"))
+        result = yaml.safe_load((run_dir / "pass-fail.yaml").read_text(encoding="utf-8"))
         assert raw["normative_answer_data_loaded"] is False
         assert result["overall_pass"] is True
-        assert {row["query_id"] for row in result["queries"]} == set(EXPECTED)
-        for row in result["queries"]:
-            assert row["expected"] == EXPECTED[row["query_id"]]
-            assert row["observed"] == row["expected"]
-            assert row["match"] is True
+        assert set(raw["queries"]) == set(EXPECTED)
+        assert set(result["queries"]) == set(EXPECTED)
+        for query_id, expected in EXPECTED.items():
+            assert raw["queries"][query_id] == expected
+            assert result["queries"][query_id] == "PASS"
 
 
 def test_two_passing_reproductions_exist():
-    runs = list((PACKAGE / "runs").glob("2026-08-14-*/pass-fail.json"))
+    runs = list((PACKAGE / "runs").glob("2026-08-14-*/pass-fail.yaml"))
     assert len(runs) == 2
+
+
+def is_verified(status):
+    return status == "VERIFIED"
+
+
+def test_verification_state_is_exact_and_preserves_not_verified():
+    metadata = json.loads((PACKAGE / "metadata.json").read_text(encoding="utf-8"))
+    status = metadata["verification_status"]
+    assert status == "NOT_VERIFIED"
+    assert not is_verified(status)
+    assert is_verified("VERIFIED")
+    assert not is_verified("NOT_VERIFIED")
 
 
 def test_no_verification_or_certification_claim_created():
     package_text = "\n".join(p.read_text(encoding="utf-8") for p in PACKAGE.rglob("*.md"))
     assert "CERTIFICATION_ISSUED" not in package_text
-    assert "VERIFIED" not in package_text
     assert "ATTESTED" not in package_text
